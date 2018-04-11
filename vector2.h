@@ -4,7 +4,7 @@
 #include <iostream>
 #include <cmath>
 
-template <typename T>
+template <typename T, typename Tdata>
 class Vector2
 {
 	public:
@@ -18,32 +18,41 @@ class Vector2
 			y = 0;
 		}
 
-		Vector2(T _x, T _y) 
+		Vector2(T _x, T _y)
 		{
 			x = _x;
 			y = _y;
+		}
+
+		Vector2(T _x, T _y, Tdata _data)
+		{
+			x = _x;
+			y = _y;
+			value = _data;
 		}
 
 		Vector2(const Vector2 &v)
 		{
 			x = v.x;
 			y = v.y;
+			value = v.value;
 		}
 
 		void set(const Vector2 &v)
 		{
 			x = v.x;
 			y = v.y;
+			value = v.value;
 		}
 
 		//
 		// Operations
-		//	
+		//
 		T dist2(const Vector2 &v)
 		{
 			T dx = x - v.x;
 			T dy = y - v.y;
-			return dx * dx + dy * dy;	
+			return dx * dx + dy * dy;
 		}
 
 		float dist(const Vector2 &v)
@@ -54,18 +63,21 @@ class Vector2
 		T x;
 		T y;
 
+
+		Tdata value;
+
 };
 
-template<typename T>
-std::ostream &operator << (std::ostream &str, Vector2<T> const &point) 
+template<typename T, typename Tdata>
+std::ostream &operator << (std::ostream &str, Vector2<T, Tdata> const &point)
 {
-	return str << "Point x: " << point.x << " y: " << point.y;
+	return str << "Point x: " << point.x << " y: " << point.y << " value: " << point.value;
 }
 
-template<typename T>
-bool operator == (Vector2<T> v1, Vector2<T> v2)
+template<typename T, typename Tdata>
+bool operator == (Vector2<T, Tdata> v1, Vector2<T, Tdata> v2)
 {
 	return (v1.x == v2.x) && (v1.y == v2.y);
 }
-	
+
 #endif
